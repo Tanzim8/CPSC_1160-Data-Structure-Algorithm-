@@ -1,3 +1,16 @@
+/*
+Lab 3: Recursion and Sorting 
+Name: M Tanzim Rahman
+ID: 100409251
+CPSC 1160
+References: 
+1. https://www.w3schools.com/cpp/cpp_functions_recursion.asp
+2. https://www.geeksforgeeks.org/cpp/cpp-program-for-merge-sort/
+3. https://www.geeksforgeeks.org/cpp/cpp-program-for-quicksort/
+4. https://stackoverflow.com/questions/77969337/quicksort-with-last-element-as-pivot-not-sorting
+5. https://www.geeksforgeeks.org/dsa/gfact-which-sorting-algorithm-is-best-and-why/
+6. ChatGPT (used to understand the concepts and the questions well)
+*/
 #include <iostream>
 using namespace std;
 //Question 1
@@ -141,6 +154,26 @@ void quickSort(int arr[], int low, int high) {
     } 
 }
 
+//Q-5
+int partitionV2(int arr[], int low, int high){
+    int pivot = arr[high];
+    int i = low - 1;
+    int j = high;
+    while(i<=j){
+        while(i<=j && arr[i]<= pivot){
+            i++;
+        }
+        while(i<=j && arr[j]> pivot){
+            j--;
+        }
+        if(i<j){
+            swap(arr[i], arr[j]);
+        }
+    }
+    swap(arr[i], arr[high]);
+    return i;
+}
+
 int main(){
     //Q-1
     int number;
@@ -188,5 +221,64 @@ int main(){
 
     cout << endl;
 
+    //Q-5
+    int arr5[] = {5, 2, 8, 1, 6};
+    int size5 = 5;
+
+    cout << "Before partition: ";
+    for (int i = 0; i < size5; i++) {
+        cout << arr5[i] << " ";
+    }
+    cout << endl;
+
+    int pivotIndex = partitionV2(arr5, 0, size5 - 1);
+
+    cout << "After partition: ";
+    for (int i = 0; i < size5; i++) {
+        cout << arr5[i] << " ";
+    }
+    cout << endl;
+
+    cout << "Pivot index: " << pivotIndex << endl;
+    cout << "Pivot value: " << arr5[pivotIndex] << endl;
+
     return 0;
 }
+
+//Part-3
+/*
+
+Question 6:
+
+a) When the data are already sorted in the right order:
+Best algorithm: Insertion sort
+
+Reason:
+Insertion sort is very good when the array is already sorted.
+It just checks the numbers and does not need to move many things.
+So it is fast in this case.
+
+b) When the data are almost sorted in the opposite order:
+Best algorithm: Merge sort
+
+Reason:
+If the array is almost backwards, insertion sort and bubble sort will have to move many numbers.
+That makes them slow.
+Merge sort is better because it splits the array and sorts it in a steady way.
+
+c) When the data are sorted in the opposite order:
+Best algorithm: Merge sort
+
+Reason:
+If the array is completely backwards, bubble sort and insertion sort are very slow.
+They need many swaps or shifts.
+Merge sort is better because it still works fast even if the array is backwards.
+
+d) When the data are randomly arranged:
+Best algorithm: Quick sort
+
+Reason:
+Quick sort is usually very fast when the numbers are random.
+It picks a pivot and puts smaller numbers on one side and bigger numbers on the other side.
+Then it keeps sorting the smaller parts.
+*/
