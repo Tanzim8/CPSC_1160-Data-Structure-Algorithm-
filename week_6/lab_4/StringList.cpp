@@ -9,6 +9,8 @@ private:
     int size;        // current number of elements
     int capacity;    // maximum capacity
 
+    // Time Complexity: O(n)
+    // Because it copies all existing strings into a new bigger array
     void resize() {    // increase capacity by 2
         //TODO   
         int newCapacity = capacity+2;
@@ -25,6 +27,8 @@ private:
 
 public:
     // Constructor with initial capacity of 3
+    // Time Complexity: O(1)
+    //Because it only creates an array of fixed size 3
     StringList() {
         //TODO
         capacity = 3;
@@ -33,11 +37,15 @@ public:
     }
 
     // Destructor
+    // Time Complexity: O(1)
+    //Because delete[] items is counted as constant time for this level.
     ~StringList() {
         //TODO
         delete[] items;
     }
     // adds str at the end of array of strings 
+    // Time Complexity: O(n)
+    // Because in the worst case, resize() may be called
     void add(const string& str) {
         //TODO
         if(size == capacity){
@@ -48,6 +56,8 @@ public:
     }
     //returns the string in the given index, 
     //it throws exception if index is invalid
+    // Time Complexity: O(1)
+    //Because accessing items[index] directly takes constant time.
     string get(int index) {
         //TODO
         if(index < 0 || index >= size){
@@ -56,6 +66,7 @@ public:
         return items[index];
     }
     // prints the StringList
+    // Time Complexity: O(n)
     void print() {
         //TODO
         for(int i =0; i<size; i++){
