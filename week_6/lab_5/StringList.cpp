@@ -1,3 +1,11 @@
+/*
+Name: M. Rahman
+ID-100409251
+CPSC-1160
+References: 
+1. https://www.geeksforgeeks.org/cpp/structures-in-cpp/
+2. ChatGpt for understanding the questions and the topics. 
+*/
 #include <iostream>
 #include <stdexcept>
 #include <string>
