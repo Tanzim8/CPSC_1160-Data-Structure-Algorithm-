@@ -84,11 +84,18 @@ void Rational:: setDen(int den){
 }
 
 //display function
-string Rational:: display() const{
-    if(den == 1){
-        return to_string(num);
+// string Rational:: display() const{
+//     if(den == 1){
+//         return to_string(num);
+//     }
+//     return to_string(num) + "/" + to_string(den);
+// }
+string Rational::display(string prefix) const {
+    if (den == 1) {
+        return prefix + to_string(num);
     }
-    return to_string(num) + "/" + to_string(den);
+
+    return prefix + to_string(num) + "/" + to_string(den);
 }
 
 Rational Rational:: operator++(int){

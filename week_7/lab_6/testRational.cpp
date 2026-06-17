@@ -29,5 +29,15 @@ int main() {
     catch (const invalid_argument& e) {
     cout << "Error : " << e.what() << "\n";
     }
+
+    //postfix & prefix test
+    cout<< "Postfix and Prefix test: \n";
+    Rational r1(4, -8);
+    cout <<r1.display("r1=") <<"\n"; //prints r1= -1/2
+    r1++;
+    cout <<r1.display("r1=") <<"\n"; //prints r1= 1/2
+    Rational r2=r1++;
+    cout<<r1.display("r1=") <<"\t"<< r2.display("r2=") <<"\n";
+
     return 0;
 }

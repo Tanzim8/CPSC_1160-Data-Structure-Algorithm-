@@ -32,12 +32,12 @@ public:
     void setDen(int den);
 
     //Display
-    string display() const;
+    string display(string prefix = "") const;
 
     //postfix
-    Rational Rational:: operator++(int);
+    Rational operator++(int);
 
     //prefix
-    Rational& Rational:: operator++();
+    Rational& operator++();
 };
 #endif
