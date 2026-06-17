@@ -55,11 +55,10 @@ Rational::Rational(const Rational& other): num(other.num), den(other.den){}
 
 //destructor
 Rational::~Rational(){
-    cout << "Deleting Rational number: " << num << "/" << display() << endl;
+    cout << "Deleting Rational number: " << display() << endl;
 }
 
 //getters
-
 int Rational:: getNum() const{
     return num;
 }
@@ -70,18 +69,17 @@ int Rational:: getDen() const{
 
 //setters
 void Rational:: set(int num, int den){
-    num = num;
-    den = den;
+    this->num = num;
+    this->den = den;
     normalize();
 }
 
 void Rational:: setNum(int num){
-    num = num;
-    normalize();
+    this->num = num;
 }
 
 void Rational:: setDen(int den){
-    den = den;
+    this->den = den;
     normalize();
 }
 
@@ -91,4 +89,23 @@ string Rational:: display() const{
         return to_string(num);
     }
     return to_string(num) + "/" + to_string(den);
+}
+
+Rational Rational:: operator++(int){
+    //old value
+    Rational temp(*this);
+    //increasing current object by 1
+    num += den;
+    //simplifying
+    normalize();
+
+    //returning the old value
+    return temp;
+}
+
+//preffix
+Rational& Rational:: operator++(){
+    num += den;
+    normalize();
+    return *this;
 }

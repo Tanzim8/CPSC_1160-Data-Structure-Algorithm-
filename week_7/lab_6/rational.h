@@ -33,5 +33,11 @@ public:
 
     //Display
     string display() const;
+
+    //postfix
+    Rational Rational:: operator++(int);
+
+    //prefix
+    Rational& Rational:: operator++();
 };
 #endif
