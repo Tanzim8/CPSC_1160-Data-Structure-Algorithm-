@@ -39,5 +39,14 @@ int main() {
     Rational r2=r1++;
     cout<<r1.display("r1=") <<"\t"<< r2.display("r2=") <<"\n";
 
+
+    cout<<"Testing unary operator + & -: \n";
+    Rational r3;
+    r3 = -r2;
+    r1 = +r3;
+    cout << r1.display("r1=") << "\t"
+        << r2.display("r2=") << "\t"
+        << r3.display("r3=") << "\n";
+        
     return 0;
 }

@@ -45,5 +45,21 @@ public:
 
     //overloading unary operator to handle r2 = 4+r1
     friend Rational operator+(int left ,const Rational& right);
+
+    //assignment operator
+    Rational operator=(const Rational& rvalue);
+
+    //unary overloading
+    Rational operator+() const;
+
+    Rational operator-() const;
+
+    //>>
+    friend istream& operator>>(istream& in, Rational& r);
+
+    //<<
+    friend ostream& operator<<(ostream& out, const Rational& r);
+
+    int operator[](int index) const;
 };
 #endif

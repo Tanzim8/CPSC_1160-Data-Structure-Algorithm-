@@ -1,3 +1,14 @@
+/*
+M. Rahman
+ID-100409251
+Lab-6, CPSC-1160
+References: 
+1. https://www.geeksforgeeks.org/cpp/increment-and-decrement-operator-overloading-in-c/
+2. https://www.geeksforgeeks.org/cpp/types-of-operator-overloading-in-cpp/
+3. https://www.tutorialspoint.com/cplusplus/unary_operators_overloading.htm
+4. https://www.geeksforgeeks.org/cpp/overloading-stream-insertion-operators-c/
+5. chatGPT, for understanding the tasks better
+*/
 #include "rational.h"
 #include <iostream>
 #include <stdexcept>
@@ -127,7 +138,65 @@ Rational Rational:: operator+(const Rational& other)const{
 
 //implementing binary operator to handle r2 = 4+r1
 Rational operator+(int left ,const Rational& right){
-    newNum = left
-
+    Rational leftRational(left);
+    return leftRational + right;
 }
 
+Rational Rational::operator=(const Rational& rvalue){
+    if(this != &rvalue){
+        num = rvalue.num;
+        den = rvalue.den;
+    }
+    return *this;
+}
+/*
+The assignment operator copies one Rational object into another.
+
+For example, if I write r2 = r1, then r2 gets the same numerator and denominator as r1.
+
+For r3 = r2 = r2 - r1, C++ works from right to left. First, it calculates r2 - r1. Then it stores that answer in r2. Then it stores the same answer in r3. So both r2 and r3 get the result.
+
+But for (r3 = r2) = r2 - r1, there is a problem if operator= returns Rational. Returning Rational means it returns a copy, not the real object. So the second assignment changes the copy, not the real r3.
+
+To fix this, operator= should return Rational& instead of Rational. Rational& means it returns the real object itself. Then (r3 = r2) still refers to the real r3, so the next assignment can change r3 correctly.
+
+So the better assignment operator should return Rational&.
+*/
+
+//unary overloading
+Rational Rational:: operator+() const{
+    return *this;
+}
+
+
+Rational Rational:: operator-() const{
+    Rational result(-num, den);
+    return result;
+}
+
+istream& operator>>(istream& in, Rational& r){
+    int numerator, denominator;
+    cout << "Enter numerator: ";
+    in >> numerator;
+    cout << "Enter denominator: ";
+    in >> denominator;
+    r.set(numerator, denominator);
+    return in;
+}
+
+ostream& operator<<(ostream& out, const Rational& r){
+    out << r.display();
+    return out;
+}
+
+int Rational:: operator[](int index) const{
+    if(index == 0){
+        return num;
+    }
+    else if(index ==1){
+        return den;
+    }
+    else{
+        throw out_of_range("Index must be 0 or 1");
+    }
+}
