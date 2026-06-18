@@ -39,5 +39,11 @@ public:
 
     //prefix
     Rational& operator++();
+
+    //overoading binary operator to handle r2 = r1 + r2
+    Rational operator+(const Rational& other) const;
+
+    //overloading unary operator to handle r2 = 4+r1
+    friend Rational operator+(int left ,const Rational& right);
 };
 #endif

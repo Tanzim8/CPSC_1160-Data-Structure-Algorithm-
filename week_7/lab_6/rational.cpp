@@ -116,3 +116,18 @@ Rational& Rational:: operator++(){
     normalize();
     return *this;
 }
+
+Rational Rational:: operator+(const Rational& other)const{
+    Rational result;
+    result.num = num*other.den + other.num*den;
+    result.den = den*other.den;
+    result.normalize();
+    return result;
+}
+
+//implementing binary operator to handle r2 = 4+r1
+Rational operator+(int left ,const Rational& right){
+    newNum = left
+
+}
+
