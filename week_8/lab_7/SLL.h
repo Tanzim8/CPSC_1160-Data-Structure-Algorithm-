@@ -13,7 +13,8 @@ struct Node{
 class SLL{
 private: 
     Node* head;
-    int size;
+    Node* tail;
+    int listSize;
 public: 
     SLL();
 
@@ -31,7 +32,7 @@ public:
 
     int& operator[](int index);
 
-    string& toString() const;
+    string toString() const;
 
     void addFirst(int val);
 
@@ -44,5 +45,9 @@ public:
     void remove(int target);
 
     bool search(int target, int &index);
+
+    int getSize() const;
+
+    int size() const;
 
 };

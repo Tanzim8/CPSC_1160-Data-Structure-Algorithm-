@@ -2,20 +2,31 @@
 
 SLL::SLL(){
     head = nullptr;
-    size = 0;
+    tail = nullptr;
+    listSize = 0;
 }
 
-SLL::SLL(int size, int defaultVal){
+SLL::SLL(int n, int defaultVal){
     head = nullptr;
-    this->size = size;
-    for(int i = 0; i<size; i++){
+    tail = nullptr;
+    listSize =0;
+
+    if(n < 0){
+        throw invalid_argument("Size cannot be negative!");
+    }
+
+    for(int i = 0; i<n; i++){
         addLast(defaultVal);
     }
 }
 
 SLL:: SLL(int arr[], int arrSize){
     head = nullptr;
-    size = arrSize;
+    tail = nullptr;
+    listSize = 0;
+    if(arrSize < 0){
+        throw invalid_argument("Array size cannot be negative!");
+    }
     for(int i = 0; i<arrSize; i++){
         addLast(arr[i]);
     }
@@ -23,7 +34,8 @@ SLL:: SLL(int arr[], int arrSize){
 
 SLL::SLL(const SLL& other){
     head = nullptr;
-    size = 0;
+    tail = nullptr;
+    listSize = 0;
 
     Node* current = other.head;
     while(current != nullptr){
@@ -32,6 +44,10 @@ SLL::SLL(const SLL& other){
     }
 }
 SLL& SLL::operator=(const SLL& other){
+
+    if(this == &other){
+        return *this;
+    }
     while(head != nullptr){
         removeFirst();
     }
@@ -65,10 +81,11 @@ istream& operator>>(istream& in, SLL& list){
         in>>value;
         list.addLast(value);
     }
+    return in;
 };
 
 int& SLL:: operator[](int index){
-    if(index<0 || index >= size){
+    if(index<0 || index >= listSize){
         throw out_of_range("index out of range");
     }
     Node* current = head;
@@ -79,13 +96,16 @@ int& SLL:: operator[](int index){
     return current->data;
 };
 
-string& SLL:: toString() const{
+string SLL::toString() const{
     string result ="";
 
     Node* current = head;
 
     while(current != nullptr){
-        result += to_string(current -> data)+ "";
+        result += to_string(current -> data);
+        if(current->next != nullptr){
+            result += " ";
+        }
         current = current -> next;
     }
     return result;
@@ -93,23 +113,26 @@ string& SLL:: toString() const{
 
 void SLL:: addFirst(int val){
     Node* newNode = new Node(val);
-    newNode -> next = head;
-    head = newNode;
-    size++;
+    if(head == nullptr){
+        head = newNode;
+        tail = newNode;
+    }else{
+        newNode -> next = head;
+        head = newNode;
+    }
+    listSize++;
 };
 
 void SLL:: addLast(int val){
-    if(head == nullptr){
-        addFirst(val);
-        return;
-    }
-    Node* current = head;
-    while(current -> next != nullptr){
-        current = current -> next;
-    }
     Node* newNode = new Node(val);
-    current -> next = newNode;
-    size++;
+    if(head == nullptr){
+        head = newNode;
+        tail = newNode;
+    }else{
+        tail -> next = newNode;
+        tail = newNode;
+    }
+    listSize++;
 }
 
 int SLL:: removeLast(){
@@ -123,7 +146,8 @@ int SLL:: removeLast(){
         int deleteVal = current -> data;
         delete current;
         head = nullptr;
-        size--;
+        tail = nullptr;
+        listSize--;
         return deleteVal;
     }
     while(current -> next != nullptr){
@@ -133,6 +157,69 @@ int SLL:: removeLast(){
     previous -> next = nullptr;
     int removedValue = current -> data;
     delete current;
-    size--;
+    tail = previous;
+    listSize--;
     return removedValue;
+}
+int SLL:: removeFirst(){
+    if(head == nullptr){
+        throw runtime_error("List is Empty");
+    }
+    Node* temp = head;
+    head = head-> next;
+    if(head == nullptr){
+        tail = nullptr;
+    }
+    int removedValue = temp->data;
+    delete temp;
+    listSize--;
+    return removedValue;
+}
+
+void SLL:: remove(int target){
+    if(head == nullptr){
+        throw runtime_error("List is empty");
+    }
+
+    if(head -> data == target){
+        removeFirst();
+        return;
+    }
+    Node* previous = head;
+    Node* current = head -> next;
+
+    while(current != nullptr && current -> data != target){
+        previous = current;
+        current = current -> next;
+    }
+    if(current == nullptr){
+        throw runtime_error("Target not found");
+    }
+    if(current == tail){
+        tail = previous;
+    }
+    previous -> next = current -> next;
+    delete current;
+    listSize--;
+}
+
+bool SLL::search(int target, int &index){
+    Node* current = head;
+    index = 0;
+    while(current != nullptr){
+        if(current -> data == target){
+            return true;
+        }
+        current = current -> next;
+        index++;
+    }
+    return false;
+}
+
+int SLL::size() const{
+    return listSize;
+}
+
+int SLL::getSize() const{
+    return listSize;
 }
