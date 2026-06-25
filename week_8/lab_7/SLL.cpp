@@ -1,8 +1,19 @@
+/*
+name: M. Rahman
+ID-100409251
+CPSC-1160
+Lab-7
+References: 
+1. https://www.geeksforgeeks.org/dsa/singly-linked-list-tutorial/
+2. https://stackoverflow.com/questions/64695570/printing-head-and-tail-of-singly-linked-list
+3. ChatGpt to understand the questions and the tail functinality better. 
+*/
 #include "SLL.h"
 
 SLL::SLL(){
     head = nullptr;
     tail = nullptr;
+    //introduced tail to make addLast() O(1), because we can directly attaced a new node after tail instead of traversing the whole list from head.
     listSize = 0;
 }
 
@@ -65,6 +76,7 @@ SLL::~SLL(){
     }
 };
 
+
 istream& operator>>(istream& in, SLL& list){
     int n;
     int value;
@@ -111,6 +123,8 @@ string SLL::toString() const{
     return result;
 };
 
+
+//time complexity = O(1) because no loop. 
 void SLL:: addFirst(int val){
     Node* newNode = new Node(val);
     if(head == nullptr){
@@ -123,6 +137,7 @@ void SLL:: addFirst(int val){
     listSize++;
 };
 
+//time complexity = O(1) because no loop. 
 void SLL:: addLast(int val){
     Node* newNode = new Node(val);
     if(head == nullptr){
@@ -135,6 +150,7 @@ void SLL:: addLast(int val){
     listSize++;
 }
 
+//time complexity = O(n) because of the while loop.
 int SLL:: removeLast(){
     if(head == nullptr){
         throw runtime_error("List is empty");
@@ -161,6 +177,7 @@ int SLL:: removeLast(){
     listSize--;
     return removedValue;
 }
+//time complexity = O(1) because no loop. 
 int SLL:: removeFirst(){
     if(head == nullptr){
         throw runtime_error("List is Empty");
@@ -176,6 +193,7 @@ int SLL:: removeFirst(){
     return removedValue;
 }
 
+//time complexity O(n), because of loop.  
 void SLL:: remove(int target){
     if(head == nullptr){
         throw runtime_error("List is empty");
@@ -203,6 +221,7 @@ void SLL:: remove(int target){
     listSize--;
 }
 
+//time complexity O(n), because of loop.  
 bool SLL::search(int target, int &index){
     Node* current = head;
     index = 0;
