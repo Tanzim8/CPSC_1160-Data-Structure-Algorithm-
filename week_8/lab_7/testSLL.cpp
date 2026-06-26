@@ -17,14 +17,14 @@ using namespace std;
 
 int main() {
 
-    cout << "===== Testing Default Constructor =====" << endl;
+    cout << "-- Testing Default Constructor --" << endl;
     SLL list1;
     cout << "list1: " << list1.toString() << endl;
     cout << "Size: " << list1.size() << endl;
     cout << endl;
 
 
-    cout << "===== Testing addFirst() =====" << endl;
+    cout << "-- Testing addFirst() --" << endl;
     list1.addFirst(30);
     list1.addFirst(20);
     list1.addFirst(10);
@@ -33,7 +33,7 @@ int main() {
     cout << endl;
 
 
-    cout << "===== Testing addLast() =====" << endl;
+    cout << "-- Testing addLast() --" << endl;
     list1.addLast(40);
     list1.addLast(50);
     cout << "After addLast 40, 50: " << list1.toString() << endl;
@@ -41,14 +41,14 @@ int main() {
     cout << endl;
 
 
-    cout << "===== Testing Constructor with n and default value =====" << endl;
+    cout << "-- Testing Constructor with n and default value --" << endl;
     SLL list2(5, 7);
     cout << "list2 should have five 7s: " << list2.toString() << endl;
     cout << "Size: " << list2.size() << endl;
     cout << endl;
 
 
-    cout << "===== Testing Array Constructor =====" << endl;
+    cout << "-- Testing Array Constructor --" << endl;
     int arr[] = {1, 2, 3, 4, 5};
     SLL list3(arr, 5);
     cout << "list3 from array: " << list3.toString() << endl;
@@ -56,7 +56,7 @@ int main() {
     cout << endl;
 
 
-    cout << "===== Testing Copy Constructor =====" << endl;
+    cout << "-- Testing Copy Constructor --" << endl;
     SLL list4(list3);
     cout << "Original list3: " << list3.toString() << endl;
     cout << "Copied list4:   " << list4.toString() << endl;
@@ -68,7 +68,7 @@ int main() {
     cout << endl;
 
 
-    cout << "===== Testing Copy Assignment Operator =====" << endl;
+    cout << "-- Testing Copy Assignment Operator --" << endl;
     SLL list5;
     list5.addLast(100);
     list5.addLast(200);
@@ -90,13 +90,13 @@ int main() {
     cout << endl;
 
 
-    cout << "===== Testing Self Assignment =====" << endl;
+    cout << "-- Testing Self Assignment --" << endl;
     list1 = list1;
     cout << "After list1 = list1: " << list1.toString() << endl;
     cout << endl;
 
 
-    cout << "===== Testing operator[] =====" << endl;
+    cout << "-- Testing operator[] --" << endl;
     cout << "list1[0]: " << list1[0] << endl;
     cout << "list1[2]: " << list1[2] << endl;
     list1[2] = 300;
@@ -104,7 +104,7 @@ int main() {
     cout << endl;
 
 
-    cout << "===== Testing search() =====" << endl;
+    cout << "-- Testing search() --" << endl;
     int index;
 
     if (list1.search(300, index)) {
@@ -121,7 +121,7 @@ int main() {
     cout << endl;
 
 
-    cout << "===== Testing removeFirst() =====" << endl;
+    cout << "-- Testing removeFirst() --" << endl;
     int removedFirst = list1.removeFirst();
     cout << "Removed first value: " << removedFirst << endl;
     cout << "After removeFirst: " << list1.toString() << endl;
@@ -129,7 +129,7 @@ int main() {
     cout << endl;
 
 
-    cout << "===== Testing removeLast() =====" << endl;
+    cout << "-- Testing removeLast() --" << endl;
     int removedLast = list1.removeLast();
     cout << "Removed last value: " << removedLast << endl;
     cout << "After removeLast: " << list1.toString() << endl;
@@ -137,7 +137,7 @@ int main() {
     cout << endl;
 
 
-    cout << "===== Testing remove(target) =====" << endl;
+    cout << "-- Testing remove(target) --" << endl;
     cout << "Before remove(300): " << list1.toString() << endl;
     list1.remove(300);
     cout << "After remove(300):  " << list1.toString() << endl;
@@ -145,7 +145,7 @@ int main() {
     cout << endl;
 
 
-    cout << "===== Testing Extraction Operator >> using stringstream =====" << endl;
+    cout << "-- Testing Extraction Operator >> using stringstream --" << endl;
     SLL list6;
     stringstream input("4 11 22 33 44");
     input >> list6;
@@ -155,7 +155,7 @@ int main() {
     cout << endl;
 
 
-    cout << "===== Testing Exceptions =====" << endl;
+    cout << "-- Testing Exceptions --" << endl;
 
     try {
         SLL badList(-3, 10);
@@ -198,7 +198,7 @@ int main() {
     }
 
     cout << endl;
-    cout << "===== All Tests Completed =====" << endl;
+    cout << "-- All Tests Completed --" << endl;
 
     return 0;
 }
