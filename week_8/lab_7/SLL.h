@@ -13,6 +13,7 @@ struct Node{
 class SLL{
 private: 
     Node* head;
+    //introduced tail to make addLast() O(1), because we can directly attaced a new node after tail instead of traversing the whole list from head.
     Node* tail;
     int listSize;
 public: 
