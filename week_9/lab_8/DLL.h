@@ -1,29 +1,33 @@
 #include <iostream>
 #include <stdexcept>
 using namespace std;
-
-class Node{
-private:
-    int data;
-    Node* prev;
-    Node* next;
-public:
-    Node(int value);
-    Node(int value, Node* after, Node* before);
-    friend class DLL;
-};
 class DLL{
+    class Node{
+    private:
+        int data;
+        Node* prev;
+        Node* next;
+    public:
+        Node(int value);
+        Node(int value, Node* after, Node* before);
+        friend class DLL;
+    };
 private: 
     Node* head;
     Node* tail;
     int size;
 public:
-    //constructor
+    // default constructor
     DLL();
-    //destructor
-    ~DLL();
+
+    DLL(int n, int data);
+
+    DLL(int arr[], int size);
+
     //copy constructor
     DLL(const DLL &);
+
+    friend istream & operator>>(istream &, DLL& list);
     //copy assignment
     DLL& operator=(const DLL&);
     //offset operator
@@ -46,4 +50,10 @@ public:
 
     //returns a pointer to the i-th node in the list
     Node* get(int i);
+
+    bool search(int target, int &idx);
+    int remove(int target);
+
+    //destructor
+    ~DLL();
 };
