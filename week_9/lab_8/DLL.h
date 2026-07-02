@@ -2,8 +2,9 @@
 #include <stdexcept>
 using namespace std;
 class DLL{
+public:
     class Node{
-    private:
+    public:
         int data;
         Node* prev;
         Node* next;
@@ -15,7 +16,7 @@ class DLL{
 private: 
     Node* head;
     Node* tail;
-    int size;
+    int listSize;
 public:
     // default constructor
     DLL();
@@ -25,14 +26,14 @@ public:
     DLL(int arr[], int size);
 
     //copy constructor
-    DLL(const DLL &);
+    DLL(const DLL & other);
 
-    friend istream & operator>>(istream &, DLL& list);
+    friend istream & operator>>(istream & in, DLL& list);
     //copy assignment
-    DLL& operator=(const DLL&);
+    DLL& operator=(const DLL& other);
     //offset operator
-    int& operator[](const int idx);
-    friend ostream & operator<<(ostream &, const DLL&);
+    Node* operator[](const int idx);
+    friend ostream & operator<<(ostream & out, const DLL& list);
     //toString method
     string toString() const;
     //adds at the begining of the list
