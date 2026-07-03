@@ -1,5 +1,8 @@
+#ifndef DLL_H
+#define DLL_H
 #include <iostream>
 #include <stdexcept>
+#include <string>
 using namespace std;
 class DLL{
 public:
@@ -10,7 +13,7 @@ public:
         Node* next;
     public:
         Node(int value);
-        Node(int value, Node* after, Node* before);
+        Node(int value, Node* before, Node* after);
         friend class DLL;
     };
 private: 
@@ -49,12 +52,10 @@ public:
     //returns the number of elements in the list
     int size();
 
-    //returns a pointer to the i-th node in the list
-    Node* get(int i);
-
     bool search(int target, int &idx);
     int remove(int target);
 
     //destructor
     ~DLL();
 };
+#endif

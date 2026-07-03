@@ -1,25 +1,42 @@
-#include "DLL.h";
+/*
+Name: M. Rahman
+ID: 100409251
+CPSC-1160
+References: 
+1. https://www.geeksforgeeks.org/cpp/doubly-linked-list-in-cpp/
+2. chatGpt and class lectures*/
+#include "DLL.h"
 #include <iostream>
+#include <string>
 #include <stdexcept>
 using namespace std;
 
+// Time Complexity: O(1)
+// Creates one node and sets data, next, prev.
 DLL::Node::Node(int value){
     data = value;
     next = nullptr;
     prev = nullptr;
 }
+
+// Time Complexity: O(1)
+// Creates one node and connects it to before and after.
 DLL::Node::Node(int value, Node* before, Node* after){
     data = value;
     next = after;
     prev = before;
 }
 
+// Time Complexity: O(1)
+// Initializes an empty DLL.
 DLL::DLL(){
     head = nullptr;
     tail = nullptr;
     listSize = 0;
 }
 
+// Time Complexity: O(n)
+// Loops n times and calls addLast(), which is O(1) each time.
 DLL::DLL(int n, int data){
     head = nullptr;
     tail = nullptr;
@@ -30,6 +47,9 @@ DLL::DLL(int n, int data){
     }
 }
 
+
+// Time Complexity: O(n)
+// Loops through the array of size n and adds each value to the DLL.
 DLL::DLL(int arr[], int size){
     head = nullptr;
     tail = nullptr;
@@ -39,6 +59,8 @@ DLL::DLL(int arr[], int size){
     }
 }
 
+// Time Complexity: O(n)
+// Copies every node from other into the new DLL.
 DLL::DLL(const DLL & other){
     head = nullptr;
     tail = nullptr;
@@ -52,6 +74,8 @@ DLL::DLL(const DLL & other){
     }
 }
 
+// Time Complexity: O(1)
+// Reads one integer and adds it to the end of the DLL using addLast().
 istream & operator>>(istream & in, DLL& list){
     int value;
     in>>value;
@@ -59,6 +83,9 @@ istream & operator>>(istream & in, DLL& list){
     return in;
 };
 
+
+// Time Complexity: O(n)
+// First clears the current list, then copies every node from other.
 DLL& DLL:: operator=(const DLL& other){
     if(this == & other){
         return *this;
@@ -74,6 +101,11 @@ DLL& DLL:: operator=(const DLL& other){
     return *this;
 }
 
+
+// Time Complexity: O(n)
+// Traverses from head to the index position.
+// Best case: O(1) if idx is 0.
+// Worst case: O(n) if idx is near the end.
 DLL:: Node* DLL::operator[](const int idx){
     if(head == nullptr){
         throw runtime_error("Empty List");
@@ -90,6 +122,9 @@ DLL:: Node* DLL::operator[](const int idx){
     return current;
 };
 
+
+// Time Complexity: O(n)
+// Traverses the whole list and prints every node.
 ostream & operator<<(ostream & out, const DLL& list){
     DLL::Node* current = list.head;
     if(current == nullptr){
@@ -102,17 +137,24 @@ ostream & operator<<(ostream & out, const DLL& list){
     return out;
 }
 
+
+// Time Complexity: O(n)
+// Traverses the whole list and builds a string from all node values.
 string DLL:: toString() const{
     string listStrn = "";
 
     DLL::Node* current = head;
     while(current != nullptr){
         listStrn.append(to_string(current->data));
-        listStrn.append("");
+        listStrn.append(" ");
         current = current->next;
     }
+    return listStrn;
 }
 
+
+// Time Complexity: O(1)
+// Adds one node at the beginning using head pointer.
 void DLL::addFirst(int data){
     Node* toAdd = new Node(data);
     if(head == nullptr){
@@ -125,6 +167,9 @@ void DLL::addFirst(int data){
     listSize++;
 }
 
+
+// Time Complexity: O(1)
+// Adds one node at the end using tail pointer.
 void DLL:: addLast(int data){
     Node* toAdd = new Node(data);
     if(head == nullptr){
@@ -137,6 +182,9 @@ void DLL:: addLast(int data){
     listSize++;
 }
 
+
+// Time Complexity: O(1)
+// Removes the first node using head pointer.
 int DLL:: removeFirst(){
     Node* toRemove = head;
     if(toRemove == nullptr){
@@ -154,6 +202,9 @@ int DLL:: removeFirst(){
     return value;
 }
 
+
+// Time Complexity: O(1)
+// Removes the last node using tail pointer.
 int DLL:: removeLast(){
     Node* toRemove = tail;
     if(head == nullptr){
@@ -164,7 +215,7 @@ int DLL:: removeLast(){
     tail = tail->prev;
 
     if(tail == nullptr){
-        head == nullptr;
+        head = nullptr;
     }else{
         tail->next = nullptr;
     }
@@ -173,6 +224,10 @@ int DLL:: removeLast(){
     return value;
 }
 
+
+// Time Complexity: O(1)
+// Inserts directly after the given node pointer p.
+// No traversal is needed because p is already given.
 void DLL:: insertAfter(Node* p, int data){
     Node* toInsert = new Node(data);
 
@@ -192,4 +247,80 @@ void DLL:: insertAfter(Node* p, int data){
         tail = toInsert;
     }
     listSize++;
+}
+
+//helper function to get the size. 
+// Time Complexity: O(1)
+// Returns the stored listSize variable.
+int DLL:: size(){
+    return listSize;
+}
+
+// Time Complexity: O(n)
+// Searches node by node from head until target is found or list ends.
+// Best case: O(1) if target is at head.
+// Worst case: O(n) if target is at the end or not found.
+bool DLL:: search(int target, int& index){
+    int count = 0;
+    if(head == nullptr){
+        throw runtime_error("empty list");
+    }
+    Node* current = head;
+    while(current != nullptr){
+        if(current->data == target){
+            index = count;
+            return true;
+        }
+        current = current-> next;
+        count++;
+    }
+    return false;
+}
+
+
+// Time Complexity: O(n)
+// Traverses the whole list once and removes all copies of target.
+int DLL::remove(int target){
+    int removeCount=0;
+    if(head == nullptr){
+        throw runtime_error("empty list");
+    }
+    Node* current = head;
+    while(current != nullptr){
+        Node* nextNode = current->next;
+        if(current->data==target){
+            if(current->prev != nullptr){
+                current->prev->next = current->next;
+            }else{
+                head = current ->next;
+            }
+            if(current->next != nullptr){
+                current ->next->prev = current->prev;
+            }else{
+                tail = current->prev;
+            }
+            delete current;
+            listSize--;
+            removeCount++;
+        }
+        current = nextNode;
+    }
+    return removeCount;
+}
+
+
+// Time Complexity: O(n)
+// Traverses the whole list and deletes every node.
+DLL::~DLL() {
+    Node* current = head;
+
+    while (current != nullptr) {
+        Node* nextNode = current->next;
+        delete current;
+        current = nextNode;
+    }
+
+    head = nullptr;
+    tail = nullptr;
+    listSize = 0;
 }
